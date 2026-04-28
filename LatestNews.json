@@ -1,18 +1,13 @@
 {
   "version": "2.0.0",
-  "lastUpdated": 1777363671,
+  "lastUpdated": 1777382984,
   "source": "lodestonenews.com",
-  "maintenance": {
-    "title": "All Worlds Maintenance (Apr. 27)",
-    "start": 1777345200,
-    "end": 1777370400,
-    "url": "https://na.finalfantasyxiv.com/lodestone/news/detail/a61d9efab70d940fc74e8e2ea85dcb9e9d3b9eb0"
-  },
+  "maintenance": null,
   "lastMaintenance": {
-    "title": "All Worlds Maintenance (Mar. 23): Follow-up",
-    "start": 1774332000,
-    "end": 1774341900,
-    "url": "https://na.finalfantasyxiv.com/lodestone/news/detail/9a352a4219b25c9a5ef56e0c5b7cf08fa5145542"
+    "title": "All Worlds Maintenance (Apr. 27): Follow-up",
+    "start": 1777345200,
+    "end": 1777368600,
+    "url": "https://na.finalfantasyxiv.com/lodestone/news/detail/1bb23d78516c06650e720770beababd7e605c5a4"
   },
   "events": [],
   "lastEvent": null
