@@ -1,27 +1,14 @@
 {
   "version": "2.0.0",
-  "lastUpdated": 1780368134,
+  "lastUpdated": 1780394674,
   "source": "lodestonenews.com",
-  "maintenance": {
+  "maintenance": null,
+  "lastMaintenance": {
     "title": "All Worlds Maintenance (Jun. 1)",
     "start": 1780372800,
     "end": 1780394400,
     "url": "https://na.finalfantasyxiv.com/lodestone/news/detail/5c2bb994bb4ea2c665ab87552a0853d9e941b2e8"
   },
-  "lastMaintenance": {
-    "title": "All Worlds Maintenance (May 6): Follow-up",
-    "start": 1778133600,
-    "end": 1778143500,
-    "url": "https://na.finalfantasyxiv.com/lodestone/news/detail/7bf8f3912f78571b2473b10234c94b52779103b4"
-  },
-  "events": [
-    {
-      "title": "The Make It Rain Campaign Begins May 29!",
-      "start": 1780041600,
-      "end": 1782313140,
-      "url": "https://na.finalfantasyxiv.com/lodestone/topics/detail/a0335376ad339be407f2bda6c3ae150c7ac5df06",
-      "category": "seasonal"
-    }
-  ],
+  "events": [],
   "lastEvent": null
 }
