@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "lastUpdated": 1780394674,
+  "lastUpdated": 1780416066,
   "source": "lodestonenews.com",
   "maintenance": null,
   "lastMaintenance": {
@@ -9,6 +9,14 @@
     "end": 1780394400,
     "url": "https://na.finalfantasyxiv.com/lodestone/news/detail/5c2bb994bb4ea2c665ab87552a0853d9e941b2e8"
   },
-  "events": [],
+  "events": [
+    {
+      "title": "The Make It Rain Campaign Begins May 29!",
+      "start": 1780041600,
+      "end": 1782313140,
+      "url": "https://na.finalfantasyxiv.com/lodestone/topics/detail/a0335376ad339be407f2bda6c3ae150c7ac5df06",
+      "category": "seasonal"
+    }
+  ],
   "lastEvent": null
 }
