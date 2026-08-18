@@ -222,7 +222,7 @@ This file is **not** touched by the scheduled workflow, which stages only
 - **Ocean Fishing Bait**: derived from [Distant Seas](https://github.com/NotNite/DistantSeas) by [@NotNite](https://github.com/NotNite), used under AGPL-3.0
 - **Built For**: 
   - [XIVToDo](https://xivtodo.com) - FFXIV task tracker
-  - [Time Memoria v2](https://github.com/LegendsOfTheGame/TimeMemoriaV2) - FFXIV Dalamud plugin
+  - [Time Memoria](https://github.com/LegendsOfTheGame/TimeMemoriaV3) - FFXIV Dalamud plugin
 
 ## 📜 License
 
