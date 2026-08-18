@@ -168,9 +168,58 @@ foreach (var eventItem in root.GetProperty("events").EnumerateArray())
 - Moogle Treasure Trove
 - Irregular Tomestones campaigns
 
+## 🎣 Ocean Fishing Bait
+
+A second, unrelated dataset served from the same repository.
+
+```
+https://raw.githubusercontent.com/LegendsOfTheGame/ffxiv-latest-news/main/OceanBait.json
+```
+
+For each Ocean Fishing zone: the fish that triggers a spectral current, and the
+bait that catches it. The game's own `IKD*` sheets carry the voyage schedule, the
+stops and the objectives, but hold nothing about bait — that part is community
+measurement.
+
+```json
+{
+  "source": "https://github.com/NotNite/DistantSeas",
+  "licence": "AGPL-3.0",
+  "built": "2026-08-18T17:46:52Z",
+  "routes": {
+    "ruby": {
+      "KuganeCoast": {
+        "fish": "Spectral Wrasse",
+        "fishId": 40549,
+        "bait": "Ragworm",
+        "baitId": 29714,
+        "alsoFlagged": ["Krill"],
+        "verifiedInGame": "2026-08-18"
+      }
+    }
+  }
+}
+```
+
+### Fields
+
+- **bait** / **baitId**: one bait per zone. Where the source flags more than one,
+  the cheapest is chosen and the rest listed in `alsoFlagged`.
+- **verifiedInGame**: present only where the trigger fish was actually landed on
+  the listed bait, in game, on that date. Absent means derived but unconfirmed.
+
+Bite times are **deliberately excluded**. They are tuning values that move on
+patches and hotfixes, and a periodically refreshed file would present stale ones
+as current.
+
+This file is **not** touched by the scheduled workflow, which stages only
+`LatestNews.json`. It is regenerated occasionally — monthly is plenty — by
+`tools/Build-OceanBait.py` in the Time Memoria repository.
+
 ## 🤝 Credits
 
 - **Data Source**: [Lodestone News](https://lodestonenews.com) by [@MattAntonelli](https://github.com/mattantonelli)
+- **Ocean Fishing Bait**: derived from [Distant Seas](https://github.com/NotNite/DistantSeas) by [@NotNite](https://github.com/NotNite), used under AGPL-3.0
 - **Built For**: 
   - [XIVToDo](https://xivtodo.com) - FFXIV task tracker
   - [Time Memoria v2](https://github.com/LegendsOfTheGame/TimeMemoriaV2) - FFXIV Dalamud plugin

@@ -1,0 +1,100 @@
+{
+  "source": "https://github.com/NotNite/DistantSeas",
+  "licence": "AGPL-3.0",
+  "built": "2026-08-18T18:39:11Z",
+  "note": "Spectral-current trigger fish and their bait. Bite times deliberately omitted.",
+  "routes": {
+    "indigo": {
+      "GaladionBay": {
+        "fish": "Spectral Megalodon",
+        "fishId": 29784,
+        "bait": "Krill",
+        "baitId": 29715
+      },
+      "SouthernMerlthor": {
+        "fish": "Spectral Discus",
+        "fishId": 29785,
+        "bait": "Krill",
+        "baitId": 29715
+      },
+      "NorthernMerlthor": {
+        "fish": "Spectral Sea Bo",
+        "fishId": 29786,
+        "bait": "Ragworm",
+        "baitId": 29714
+      },
+      "RhotanoSea": {
+        "fish": "Spectral Bass",
+        "fishId": 29787,
+        "bait": "Plump Worm",
+        "baitId": 29716
+      },
+      "CieldalaesMargin": {
+        "fish": "Spectral Butterfly",
+        "fishId": 32063,
+        "bait": "Ragworm",
+        "baitId": 29714,
+        "verifiedInGame": "2026-08-18"
+      },
+      "BloodbrineSea": {
+        "fish": "Spectral Eel",
+        "fishId": 32083,
+        "bait": "Krill",
+        "baitId": 29715
+      },
+      "RothlytSound": {
+        "fish": "Spectresaur",
+        "fishId": 32103,
+        "bait": "Plump Worm",
+        "baitId": 29716
+      }
+    },
+    "ruby": {
+      "SirensongSea": {
+        "fish": "Spectral Coelacanth",
+        "fishId": 40529,
+        "bait": "Plump Worm",
+        "baitId": 29716,
+        "verifiedInGame": "2026-08-18"
+      },
+      "KuganeCoast": {
+        "fish": "Spectral Wrasse",
+        "fishId": 40549,
+        "bait": "Ragworm",
+        "baitId": 29714,
+        "alsoFlagged": [
+          "Krill"
+        ],
+        "verifiedInGame": "2026-08-18"
+      },
+      "RubySea": {
+        "fish": "Spectral Snake Eel",
+        "fishId": 40569,
+        "bait": "Krill",
+        "baitId": 29715,
+        "verifiedInGame": "2026-08-18"
+      },
+      "OneRiver": {
+        "fish": "Spectral Kotsu Zetsu",
+        "fishId": 40589,
+        "bait": "Krill",
+        "baitId": 29715,
+        "alsoFlagged": [
+          "Plump Worm"
+        ]
+      },
+      "UnnamedIsland": {
+        "fish": "Spectral Starfish",
+        "fishId": 51217,
+        "bait": "Ragworm",
+        "baitId": 29714
+      },
+      "Thavnair": {
+        "fish": "Spectral Grouper",
+        "fishId": 51237,
+        "bait": "Krill",
+        "baitId": 29715
+      }
+    }
+  }
+}
