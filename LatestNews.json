@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "lastUpdated": 1788314531,
+  "lastUpdated": 1788343908,
   "source": "lodestonenews.com",
   "maintenance": null,
   "lastMaintenance": {
@@ -15,6 +15,13 @@
       "start": 1787814000,
       "end": 1789052340,
       "url": "https://na.finalfantasyxiv.com/lodestone/topics/detail/934039c77087ac5ad6e535866dedb5bc63511885",
+      "category": "seasonal"
+    },
+    {
+      "title": "Moogle Treasure Trove - The First Hunt for Astronomy Commences September 9!",
+      "start": 1788940800,
+      "end": 1792421940,
+      "url": "https://na.finalfantasyxiv.com/lodestone/topics/detail/7a376504f18acaff4ffc60c1526f7354141c1a46",
       "category": "seasonal"
     }
   ],
