@@ -1,18 +1,13 @@
 {
   "version": "2.0.0",
-  "lastUpdated": 1788833271,
+  "lastUpdated": 1788862649,
   "source": "lodestonenews.com",
-  "maintenance": {
-    "title": "All Worlds Maintenance (Sep. 7)",
-    "start": 1788847200,
-    "end": 1788861600,
-    "url": "https://na.finalfantasyxiv.com/lodestone/news/detail/412e688db6331c0d36ea6a9fb75b31a9dc66d354"
-  },
+  "maintenance": null,
   "lastMaintenance": {
-    "title": "All Worlds Maintenance (Jul. 27): Follow-up",
-    "start": 1785218400,
-    "end": 1785230400,
-    "url": "https://na.finalfantasyxiv.com/lodestone/news/detail/cb39397d0ed5420c2a2e177b865da1bccdd6e464"
+    "title": "All Worlds Maintenance (Sep. 7): Follow-up",
+    "start": 1788847200,
+    "end": 1788859500,
+    "url": "https://na.finalfantasyxiv.com/lodestone/news/detail/a66d99ef5c009775fc03f7fc8c9857ef1626f3d1"
   },
   "events": [
     {
@@ -30,11 +25,5 @@
       "category": "seasonal"
     }
   ],
-  "lastEvent": {
-    "title": "The Moonfire Faire Begins August 12!",
-    "start": 1786521600,
-    "end": 1787756340,
-    "url": "https://na.finalfantasyxiv.com/lodestone/topics/detail/3817357c7556773cf1a07db2646a6d92245ada43",
-    "category": "seasonal"
-  }
+  "lastEvent": null
 }
