@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "lastUpdated": 1789035354,
+  "lastUpdated": 1789054218,
   "source": "lodestonenews.com",
   "maintenance": null,
   "lastMaintenance": {
@@ -11,13 +11,6 @@
   },
   "events": [
     {
-      "title": "The Rising Returns August 27!",
-      "start": 1787814000,
-      "end": 1789052340,
-      "url": "https://na.finalfantasyxiv.com/lodestone/topics/detail/934039c77087ac5ad6e535866dedb5bc63511885",
-      "category": "seasonal"
-    },
-    {
       "title": "Moogle Treasure Trove - The First Hunt for Astronomy Commences September 9!",
       "start": 1788940800,
       "end": 1792421940,
@@ -25,5 +18,11 @@
       "category": "seasonal"
     }
   ],
-  "lastEvent": null
+  "lastEvent": {
+    "title": "The Rising Returns August 27!",
+    "start": 1787814000,
+    "end": 1789052340,
+    "url": "https://na.finalfantasyxiv.com/lodestone/topics/detail/934039c77087ac5ad6e535866dedb5bc63511885",
+    "category": "seasonal"
+  }
 }
