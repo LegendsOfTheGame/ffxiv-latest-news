@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import html
 import json
 import requests
 import re
@@ -7,14 +8,32 @@ from typing import Optional, Tuple, Dict, List
 
 # --- Configuration ---
 LODESTONE_API = "https://lodestonenews.com/news"
+LODESTONE_BASE = "https://na.finalfantasyxiv.com"
 OUTPUT_FILE = "LatestNews.json"
 RETENTION_DAYS = 30
 
 SEASONAL_KEYWORDS = [
     "Valentione", "Heavensturn", "Little Ladies", "Hatching",
     "Make It Rain", "Moonfire", "The Rising", "All Saints",
-    "Starlight", "Moogle Treasure", "Irregular Tomestone"
+    "Starlight", "Moogle Treasure", "Irregular Tomestone",
+    "Collaboration Event", "Yo-kai"
 ]
+
+# Front-page banners that link to /lodestone/special/ but are permanent pages,
+# not events. Anything else without a date range is skipped anyway; this only
+# saves the requests.
+SPECIAL_SKIP = ("fankit", "friend_recruit", "patchnote_log", "update_log")
+
+# "Tuesday, August 4, 2026 at 1:00 a.m. to Monday, October 5, 2026 at 7:59 a.m. (PDT)"
+# The start zone is optional (Hatching-tide omits it), and the space before
+# "to" is too (Yo-kai 2026 prints "a.m.to").
+DATE_RANGE = re.compile(
+    r"\w+day,\s+(\w+\s+\d+,\s+\d{4})\s+at\s+(\d+:\d+)\s*([ap]\.m\.)"
+    r"(?:\s*\((\w+)\))?"
+    r"\s*to\s+\w+day,\s+(\w+\s+\d+,\s+\d{4})\s+at\s+(\d+:\d+)\s*([ap]\.m\.)"
+    r"\s*\((\w+)\)",
+    re.IGNORECASE,
+)
 
 
 def fetch_api(category: str) -> List[Dict]:
@@ -33,17 +52,23 @@ def scrape_event_dates(url: str) -> Tuple[Optional[int], Optional[int]]:
     try:
         print(f"    🌐 Initial URL: {url}")
 
-        # Follow redirects / "Read on" to land on the special page
-        content = ""
+        # Read dates from whichever page has them first. Most events print
+        # them on the special page, but some (FFXV 2026) print them only in
+        # the topic body, so every hop is checked before following it on.
         for hop in range(3):
             response = requests.get(url, timeout=15, allow_redirects=True)
             response.raise_for_status()
             content = response.text
             url = response.url
 
+            start, end = find_event_dates(content)
+            if start and end:
+                print(f"    ✅ Dates found (hop {hop}): {url}")
+                return start, end
+
             if "/lodestone/special/" in url:
-                print(f"    ✅ On special page (hop {hop}): {url}")
-                break
+                print(f"    ✗ Special page has no date range: {url}")
+                return None, None
 
             # Direct special-page link in the HTML
             special_match = re.search(
@@ -79,21 +104,34 @@ def scrape_event_dates(url: str) -> Tuple[Optional[int], Optional[int]]:
             print(f"    ⚠️ Hop {hop + 1}: No onward link found at {url}")
             break
 
-        # Parse the meta description on the special page
-        meta_match = re.search(
-            r'<meta name="description" content="[^"]*?'
-            r'From\s+\w+,\s+(\w+\s+\d+,\s+\d{4})\s+at\s+(\d+:\d+)\s+([ap]\.m\.)'
-            r'(?:\s*\((\w+)\))?'  # optional start TZ
-            r'\s+to\s+\w+,\s+(\w+\s+\d+,\s+\d{4})\s+at\s+(\d+:\d+)\s+([ap]\.m\.)'
-            r'\s*\((\w+)\)',
-            content,
-            re.IGNORECASE,
-        )
+        print("    ✗ No date range found")
+        return None, None
 
-        if not meta_match:
-            print("    ✗ Meta description date pattern not found")
-            return None, None
+    except Exception as e:
+        print(f"    ✗ Scrape error: {e}")
+        return None, None
 
+
+def find_event_dates(content: str) -> Tuple[Optional[int], Optional[int]]:
+    """First date range on the page. The visible text wins over the meta
+    description: SE has reused an old special page's meta unchanged before
+    (Feb 2026 still said 2019), so the meta is only a fallback for a page whose
+    body has no range at all. Tags are stripped because the body splits the
+    range across <span>s and <br>s."""
+    body = re.sub(r"<head>.*?</head>", " ", content, flags=re.DOTALL | re.IGNORECASE)
+    body = html.unescape(re.sub(r"<[^>]+>", " ", body))
+    match = DATE_RANGE.search(body)
+
+    if not match:
+        meta = re.search(r'<meta name="description" content="([^"]*)"', content)
+        match = DATE_RANGE.search(html.unescape(meta.group(1))) if meta else None
+        if match:
+            print("    ⚠️ Body has no date range; falling back to meta description")
+
+    if not match:
+        return None, None
+
+    try:
         (
             start_date,
             start_time,
@@ -103,7 +141,7 @@ def scrape_event_dates(url: str) -> Tuple[Optional[int], Optional[int]]:
             end_time,
             end_mer,
             end_tz,
-        ) = meta_match.groups()
+        ) = match.groups()
 
         # Normalize AM/PM
         start_mer = start_mer.replace(".", "").upper()
@@ -131,14 +169,74 @@ def scrape_event_dates(url: str) -> Tuple[Optional[int], Optional[int]]:
         e_ts = int((e_dt + timedelta(hours=e_offset)).timestamp())
 
         print(
-            f"    ✅ Parsed from meta: {start_date} ({start_tz}) → "
+            f"    ✅ Parsed: {start_date} ({start_tz}) → "
             f"{end_date} ({end_tz})"
         )
         return s_ts, e_ts
 
-    except Exception as e:
-        print(f"    ✗ Scrape error: {e}")
+    except ValueError as e:
+        print(f"    ✗ Date parse error: {e}")
         return None, None
+
+
+def page_title(content: str) -> Optional[str]:
+    """Event name from a special page's <title>, without the site suffix or
+    the trailing year: "Yo-kai Watch: Gather One, Gather All! 2026"."""
+    match = re.search(r"<title>([^<]*)</title>", content)
+    if not match:
+        return None
+    title = html.unescape(match.group(1)).split(" | ")[0].strip()
+    return re.sub(r"\s+\d{4}$", "", title) or None
+
+
+def fetch_banner_events() -> List[Dict]:
+    """Events linked from the Lodestone front-page banners.
+
+    The topics API returns only the latest 20 topics, so an event announced
+    weeks before it ends (Yo-kai Watch 2026, announced in early August) drops
+    out of it while still running. The front page keeps a banner up for as
+    long as the event runs."""
+    try:
+        response = requests.get(f"{LODESTONE_BASE}/lodestone/", timeout=15)
+        response.raise_for_status()
+    except Exception as e:
+        print(f" ✗ Error fetching Lodestone front page: {e}")
+        return []
+
+    paths = []
+    for path in re.findall(r'href="(/lodestone/special/[^"?#]+)', response.text):
+        slug = path[len("/lodestone/special/"):]
+        if slug.startswith(SPECIAL_SKIP) or path in paths:
+            continue
+        paths.append(path)
+
+    events: List[Dict] = []
+    for path in paths:
+        url = LODESTONE_BASE + path
+        print(f"  📅 Checking banner: {url}")
+        try:
+            page = requests.get(url, timeout=15)
+            page.raise_for_status()
+        except Exception as e:
+            print(f"    ✗ Fetch error: {e}")
+            continue
+
+        start, end = find_event_dates(page.text)
+        title = page_title(page.text)
+        if not start or not end or not title:
+            print("    ⚠️ Skipping — no date range or title")
+            continue
+
+        events.append({
+            "title": title,
+            "start": start,
+            "end": end,
+            "url": url,
+            "category": "seasonal",
+        })
+        print(f"    ✅ {title}")
+
+    return events
 
 
 def parse_maintenance(
@@ -220,6 +318,12 @@ def main() -> None:
     last_event: Optional[Dict] = None
     cutoff = now - (RETENTION_DAYS * 86400)
 
+    # Keyed on the date range, so an event found both as a topic and as a
+    # banner is listed once. The banner is added second and wins: its title
+    # is the event's name ("Yo-kai Watch: Gather One, Gather All!"), where the
+    # topic title is an announcement ("... Collaboration Event Returns!").
+    found: Dict[Tuple[int, int], Dict] = {}
+
     for item in topics:
         title = item.get("title", "")
         if not any(kw.lower() in title.lower() for kw in SEASONAL_KEYWORDS):
@@ -232,7 +336,7 @@ def main() -> None:
             print("    ⚠️ Skipping — could not parse dates")
             continue
 
-        evt = {
+        found[(start, end)] = {
             "title": title,
             "start": start,
             "end": end,
@@ -240,6 +344,11 @@ def main() -> None:
             "category": "seasonal",
         }
 
+    for evt in fetch_banner_events():
+        found[(evt["start"], evt["end"])] = evt
+
+    for evt in found.values():
+        end = evt["end"]
         if end > now:
             events.append(evt)
             print("    ✅ Active event added")

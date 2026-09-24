@@ -147,9 +147,17 @@ foreach (var eventItem in root.GetProperty("events").EnumerateArray())
 1. **GitHub Actions** runs `parse_news.py` every 6 hours
 2. Script fetches from lodestonenews.com Topics and Maintenance APIs
 3. For seasonal events:
-   - Detects events by keywords (Valentione's, Heavensturn, etc.)
+   - Detects topics by keywords (Valentione's, Heavensturn, etc.)
    - Follows "Read on" redirect links (`sqex.to` → actual event page)
-   - Scrapes event dates from Lodestone special pages
+   - Reads the event dates from the first page in that chain that shows them
+   - Also reads each event banner on the Lodestone front page. The topics API
+     returns only the latest 20 topics, so a long event drops out of it while
+     it is still running. The banner stays up until the event ends.
+   - Lists an event once when the topic and the banner give the same dates.
+     The banner title is used, because it is the event name.
+   - Reads the dates from the visible page text. The meta description is used
+     only when the page text has no date range, because SE has reused old
+     meta descriptions without changing the dates.
    - Filters out expired events
 4. Commits `LatestNews.json` to repository
 5. Available immediately via GitHub raw URL
@@ -167,6 +175,8 @@ foreach (var eventItem in root.GetProperty("events").EnumerateArray())
 - Starlight Celebration
 - Moogle Treasure Trove
 - Irregular Tomestones campaigns
+- Collaboration events (Yo-kai Watch, FFXV, and others)
+- Any other event with a Lodestone front-page banner and a date range
 
 ## 🎣 Ocean Fishing Bait
 
