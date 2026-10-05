@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "lastUpdated": 1791205383,
+  "lastUpdated": 1791242934,
   "source": "lodestonenews.com",
   "maintenance": null,
   "lastMaintenance": {
@@ -10,13 +10,6 @@
     "url": "https://na.finalfantasyxiv.com/lodestone/news/detail/a66d99ef5c009775fc03f7fc8c9857ef1626f3d1"
   },
   "events": [
-    {
-      "title": "Yo-kai Watch: Gather One, Gather All!",
-      "start": 1785830400,
-      "end": 1791212340,
-      "url": "https://na.finalfantasyxiv.com/lodestone/special/2026/youkai-watch/u6bmhovibh",
-      "category": "seasonal"
-    },
     {
       "title": "Moogle Treasure Trove the First Hunt for Astronomy",
       "start": 1788940800,
