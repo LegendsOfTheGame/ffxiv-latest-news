@@ -1,8 +1,13 @@
 {
   "version": "2.0.0",
-  "lastUpdated": 1791430644,
+  "lastUpdated": 1791462530,
   "source": "lodestonenews.com",
-  "maintenance": null,
+  "maintenance": {
+    "title": "All Worlds Maintenance (Oct. 12-13)",
+    "start": 1791799200,
+    "end": 1791885600,
+    "url": "https://na.finalfantasyxiv.com/lodestone/news/detail/24dff898070f0d2a8bafb3b1a862e344abecc9b5"
+  },
   "lastMaintenance": {
     "title": "All Worlds Maintenance (Sep. 7): Follow-up",
     "start": 1788847200,
@@ -29,6 +34,13 @@
       "start": 1791360000,
       "end": 1793113140,
       "url": "https://na.finalfantasyxiv.com/lodestone/special/fallguys/",
+      "category": "seasonal"
+    },
+    {
+      "title": "All Saints' Wake 2026 - A Grisly Affair of Mortals and Bears",
+      "start": 1792051200,
+      "end": 1793631540,
+      "url": "https://na.finalfantasyxiv.com/lodestone/special/2026/All_Saints_Wake/tfrx2rkv52",
       "category": "seasonal"
     }
   ],
