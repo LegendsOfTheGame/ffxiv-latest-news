@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "lastUpdated": 1791719348,
+  "lastUpdated": 1791738130,
   "source": "lodestonenews.com",
   "maintenance": {
     "title": "All Worlds Maintenance (Oct. 12-13)",
@@ -16,6 +16,13 @@
   },
   "events": [
     {
+      "title": "Moogle Treasure Trove the First Hunt for Astronomy",
+      "start": 1788940800,
+      "end": 1792421940,
+      "url": "https://na.finalfantasyxiv.com/lodestone/special/mogmog-collection/202609/lsekubsk45",
+      "category": "seasonal"
+    },
+    {
       "title": "The FINAL FANTASY XIV & FINAL FANTASY XV Collaboration Event Returns!",
       "start": 1790236800,
       "end": 1791903540,
@@ -23,17 +30,17 @@
       "category": "seasonal"
     },
     {
-      "title": "Fall Guys Collaboration Event Returns October 7!",
+      "title": "FINAL FANTASY XIV & Fall Guys Collaboration",
       "start": 1791360000,
       "end": 1793113140,
-      "url": "https://na.finalfantasyxiv.com/lodestone/topics/detail/e1eb49ab626ea7b71795aab17ac5f335d8ace6de",
+      "url": "https://na.finalfantasyxiv.com/lodestone/special/fallguys/",
       "category": "seasonal"
     },
     {
-      "title": "All Saints' Wake Begins October 15",
+      "title": "All Saints' Wake 2026 - A Grisly Affair of Mortals and Bears",
       "start": 1792051200,
       "end": 1793631540,
-      "url": "https://na.finalfantasyxiv.com/lodestone/topics/detail/10d899ee4fcc8eba8414f464a712e14200e8e1f8",
+      "url": "https://na.finalfantasyxiv.com/lodestone/special/2026/All_Saints_Wake/tfrx2rkv52",
       "category": "seasonal"
     }
   ],
