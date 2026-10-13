@@ -1,18 +1,13 @@
 {
   "version": "2.0.0",
-  "lastUpdated": 1791869055,
+  "lastUpdated": 1791897097,
   "source": "lodestonenews.com",
-  "maintenance": {
-    "title": "All Worlds Maintenance (Oct. 12-13)",
-    "start": 1791799200,
-    "end": 1791885600,
-    "url": "https://na.finalfantasyxiv.com/lodestone/news/detail/24dff898070f0d2a8bafb3b1a862e344abecc9b5"
-  },
+  "maintenance": null,
   "lastMaintenance": {
-    "title": "All Worlds Maintenance (Sep. 7): Follow-up",
-    "start": 1788847200,
-    "end": 1788859500,
-    "url": "https://na.finalfantasyxiv.com/lodestone/news/detail/a66d99ef5c009775fc03f7fc8c9857ef1626f3d1"
+    "title": "All Worlds Maintenance (Oct. 12-13): Follow-up",
+    "start": 1791799200,
+    "end": 1791883500,
+    "url": "https://na.finalfantasyxiv.com/lodestone/news/detail/d1f4f1da33328d09e74d0565fabaa7941d58d08e"
   },
   "events": [
     {
