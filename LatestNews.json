@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "lastUpdated": 1791897097,
+  "lastUpdated": 1791929128,
   "source": "lodestonenews.com",
   "maintenance": null,
   "lastMaintenance": {
@@ -18,13 +18,6 @@
       "category": "seasonal"
     },
     {
-      "title": "The FINAL FANTASY XIV & FINAL FANTASY XV Collaboration Event Returns!",
-      "start": 1790236800,
-      "end": 1791903540,
-      "url": "https://na.finalfantasyxiv.com/lodestone/topics/detail/b7ff81b627294a36825255532371d6d8f9066d74",
-      "category": "seasonal"
-    },
-    {
       "title": "FINAL FANTASY XIV & Fall Guys Collaboration",
       "start": 1791360000,
       "end": 1793113140,
@@ -39,5 +32,11 @@
       "category": "seasonal"
     }
   ],
-  "lastEvent": null
+  "lastEvent": {
+    "title": "The FINAL FANTASY XIV & FINAL FANTASY XV Collaboration Event Returns!",
+    "start": 1790236800,
+    "end": 1791903540,
+    "url": "https://na.finalfantasyxiv.com/lodestone/topics/detail/b7ff81b627294a36825255532371d6d8f9066d74",
+    "category": "seasonal"
+  }
 }
