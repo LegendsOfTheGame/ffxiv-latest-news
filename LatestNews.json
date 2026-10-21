@@ -1,14 +1,9 @@
 {
   "version": "2.0.0",
-  "lastUpdated": 1792579814,
+  "lastUpdated": 1792599536,
   "source": "lodestonenews.com",
   "maintenance": null,
-  "lastMaintenance": {
-    "title": "All Worlds Maintenance (Oct. 19): Follow-up",
-    "start": 1792468800,
-    "end": 1792487100,
-    "url": "https://na.finalfantasyxiv.com/lodestone/news/detail/70b303db0732cd2aadb62fa320f7fffd5822a45d"
-  },
+  "lastMaintenance": null,
   "events": [
     {
       "title": "FINAL FANTASY XIV & Fall Guys Collaboration",
