@@ -16,7 +16,7 @@ SEASONAL_KEYWORDS = [
     "Valentione", "Heavensturn", "Little Ladies", "Hatching",
     "Make It Rain", "Moonfire", "The Rising", "All Saints",
     "Starlight", "Moogle Treasure", "Irregular Tomestone",
-    "Collaboration Event", "Yo-kai"
+    "Collaboration Event", "Yo-kai", "Keybound Brawler"
 ]
 
 # Front-page banners that link to /lodestone/special/ but are permanent pages,
@@ -35,6 +35,27 @@ DATE_RANGE = re.compile(
     re.IGNORECASE,
 )
 
+# Reported release times for patches an open-ended event runs until. Used as
+# that event's "end" with "endEstimated": true, so readers that know only
+# "end" still get a countdown. 8.0 Evercold: reported, NOT confirmed. The
+# Fan Festival 2026 in Tokyo keynote is 31 October 2026, 02:00-04:00 UTC (30 Oct
+# 7-9 p.m. PDT, Lodestone topic 0377fcc5...); expect the real date there. Keep in
+# step with EVERCOLD_UTC in pandora-lunar/app.js when it lands.
+PATCH_RELEASES = {
+    "Patch 8.0": int(datetime(2027, 1, 19, 7, 0, tzinfo=timezone.utc).timestamp()),
+}
+
+# "Wednesday, October 28, 2026 at 1:00 a.m. (PDT) to the release of Patch 8.0"
+# An event with a start and no end date (Keybound Brawler, Oct 2026). Tried
+# only when DATE_RANGE finds nothing; the event is written with "end": null
+# and the patch in "endNote".
+OPEN_RANGE = re.compile(
+    r"\w+day,\s+(\w+\s+\d+,\s+\d{4})\s+at\s+(\d+:\d+)\s*([ap]\.m\.)"
+    r"\s*\((\w+)\)"
+    r"\s*to\s+the\s+release\s+of\s+(Patch\s+\d+(?:\.\d+)*)",
+    re.IGNORECASE,
+)
+
 
 def fetch_api(category: str) -> List[Dict]:
     try:
@@ -48,7 +69,9 @@ def fetch_api(category: str) -> List[Dict]:
         return []
 
 
-def scrape_event_dates(url: str) -> Tuple[Optional[int], Optional[int]]:
+def scrape_event_dates(url: str) -> Tuple[Optional[int], Optional[int], Optional[str]]:
+    """(start, end, endNote). end is None and endNote is set for an event that
+    runs until a patch rather than a date."""
     try:
         print(f"    🌐 Initial URL: {url}")
 
@@ -64,11 +87,16 @@ def scrape_event_dates(url: str) -> Tuple[Optional[int], Optional[int]]:
             start, end = find_event_dates(content)
             if start and end:
                 print(f"    ✅ Dates found (hop {hop}): {url}")
-                return start, end
+                return start, end, None
+
+            open_start, note = find_open_event(content)
+            if open_start:
+                print(f"    ✅ Open-ended dates found (hop {hop}): {url}")
+                return open_start, None, note
 
             if "/lodestone/special/" in url:
                 print(f"    ✗ Special page has no date range: {url}")
-                return None, None
+                return None, None, None
 
             # Direct special-page link in the HTML
             special_match = re.search(
@@ -105,11 +133,36 @@ def scrape_event_dates(url: str) -> Tuple[Optional[int], Optional[int]]:
             break
 
         print("    ✗ No date range found")
-        return None, None
+        return None, None, None
 
     except Exception as e:
         print(f"    ✗ Scrape error: {e}")
+        return None, None, None
+
+
+def find_open_event(content: str) -> Tuple[Optional[int], Optional[str]]:
+    """Start time and end note ("Until Patch 8.0") for an event that runs
+    until a patch instead of until a date. (None, None) when there is none."""
+    body = re.sub(r"<head>.*?</head>", " ", content, flags=re.DOTALL | re.IGNORECASE)
+    body = html.unescape(re.sub(r"<[^>]+>", " ", body))
+    match = OPEN_RANGE.search(body)
+    if not match:
         return None, None
+
+    date, clock, meridiem, zone, patch = match.groups()
+    offset = {"PST": 8, "PDT": 7, "EST": 5, "EDT": 4}.get(zone.upper(), 8)
+    try:
+        start = datetime.strptime(
+            f"{date} {clock} {meridiem.replace('.', '').upper()}",
+            "%B %d, %Y %I:%M %p",
+        ).replace(tzinfo=timezone.utc) + timedelta(hours=offset)
+    except ValueError as e:
+        print(f"    ✗ Date parse error: {e}")
+        return None, None
+
+    note = "Until " + re.sub(r"\s+", " ", patch)
+    print(f"    ✅ Parsed open-ended: {date} ({zone}), {note}")
+    return int(start.timestamp()), note
 
 
 def find_event_dates(content: str) -> Tuple[Optional[int], Optional[int]]:
@@ -330,26 +383,37 @@ def main() -> None:
             continue
 
         print(f"  📅 Checking: {title}")
-        start, end = scrape_event_dates(item["url"])
+        start, end, note = scrape_event_dates(item["url"])
 
-        if not start or not end:
+        if not start or (not end and not note):
             print("    ⚠️ Skipping — could not parse dates")
             continue
 
-        found[(start, end)] = {
+        estimated = False
+        if not end and note:
+            end = PATCH_RELEASES.get(note.removeprefix("Until "))
+            estimated = end is not None
+
+        evt = {
             "title": title,
             "start": start,
             "end": end,
             "url": item["url"],
             "category": "seasonal",
         }
+        if note:
+            evt["endNote"] = note
+        if estimated:
+            evt["endEstimated"] = True
+        found[(start, end)] = evt
 
     for evt in fetch_banner_events():
         found[(evt["start"], evt["end"])] = evt
 
     for evt in found.values():
         end = evt["end"]
-        if end > now:
+        # No end date: it runs until a patch, so it stays listed.
+        if end is None or end > now:
             events.append(evt)
             print("    ✅ Active event added")
         elif end > cutoff:
