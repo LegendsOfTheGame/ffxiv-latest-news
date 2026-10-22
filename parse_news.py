@@ -45,6 +45,26 @@ PATCH_RELEASES = {
     "Patch 8.0": int(datetime(2027, 1, 19, 7, 0, tzinfo=timezone.utc).timestamp()),
 }
 
+def _utc(y: int, mo: int, d: int, h: int, mi: int = 0) -> int:
+    return int(datetime(y, mo, d, h, mi, tzinfo=timezone.utc).timestamp())
+
+
+# Hand-entered entries for things the topics give as stage times rather than a
+# date range. Category "broadcast": never stored as lastEvent. Times are the
+# Lodestone's Pacific times (PDT, UTC-7) converted to UTC. Only the keynote is
+# in English; the other stage events are in Japanese only.
+FAN_FEST_2026 = "https://na.finalfantasyxiv.com/lodestone/topics/detail/0377fcc55f424b8554a752a01c30057ec29d825b"
+MANUAL_EVENTS = [
+    {"title": "Fan Festival 2026 in Tokyo: Keynote",
+     "start": _utc(2026, 10, 31, 2), "end": _utc(2026, 10, 31, 4), "url": FAN_FEST_2026},
+    {"title": "Fan Festival 2026 in Tokyo: Yoshi-P's Rapid-Fire Q&A Challenge! (Japanese)",
+     "start": _utc(2026, 10, 31, 7, 30), "end": _utc(2026, 10, 31, 8), "url": FAN_FEST_2026},
+    {"title": "Fan Festival 2026 in Tokyo: Development Panel (Japanese)",
+     "start": _utc(2026, 11, 1, 1, 30), "end": _utc(2026, 11, 1, 3), "url": FAN_FEST_2026},
+    {"title": "Fan Festival 2026 in Tokyo: LIVE Q&A (Japanese)",
+     "start": _utc(2026, 11, 1, 3, 30), "end": _utc(2026, 11, 1, 4, 30), "url": FAN_FEST_2026},
+]
+
 # "Wednesday, October 28, 2026 at 1:00 a.m. (PDT) to the release of Patch 8.0"
 # An event with a start and no end date (Keybound Brawler, Oct 2026). Tried
 # only when DATE_RANGE finds nothing; the event is written with "end": null
@@ -410,12 +430,17 @@ def main() -> None:
     for evt in fetch_banner_events():
         found[(evt["start"], evt["end"])] = evt
 
+    for manual in MANUAL_EVENTS:
+        found[(manual["start"], manual["end"])] = {**manual, "category": "broadcast"}
+
     for evt in found.values():
         end = evt["end"]
         # No end date: it runs until a patch, so it stays listed.
         if end is None or end > now:
             events.append(evt)
             print("    ✅ Active event added")
+        elif evt["category"] == "broadcast":
+            continue
         elif end > cutoff:
             if not last_event or end > last_event["end"]:
                 last_event = evt
