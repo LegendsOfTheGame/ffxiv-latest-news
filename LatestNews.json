@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "lastUpdated": 1792666309,
+  "lastUpdated": 1792681058,
   "source": "lodestonenews.com",
   "maintenance": null,
   "lastMaintenance": {
@@ -23,6 +23,15 @@
       "end": 1793631540,
       "url": "https://na.finalfantasyxiv.com/lodestone/special/2026/All_Saints_Wake/tfrx2rkv52",
       "category": "seasonal"
+    },
+    {
+      "title": "Keybound Brawler Arrives October 28!",
+      "start": 1793174400,
+      "end": 1800342000,
+      "url": "https://na.finalfantasyxiv.com/lodestone/topics/detail/e658d27622943f03f2162bee068e01ecc9efc0fd",
+      "category": "seasonal",
+      "endNote": "Until Patch 8.0",
+      "endEstimated": true
     }
   ],
   "lastEvent": {
