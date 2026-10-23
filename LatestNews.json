@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "lastUpdated": 1792722938,
+  "lastUpdated": 1792752177,
   "source": "lodestonenews.com",
   "maintenance": null,
   "lastMaintenance": {
@@ -62,11 +62,5 @@
       "category": "broadcast"
     }
   ],
-  "lastEvent": {
-    "title": "The FINAL FANTASY XIV & FINAL FANTASY XV Collaboration Event Returns!",
-    "start": 1790236800,
-    "end": 1791903540,
-    "url": "https://na.finalfantasyxiv.com/lodestone/topics/detail/b7ff81b627294a36825255532371d6d8f9066d74",
-    "category": "seasonal"
-  }
+  "lastEvent": null
 }
