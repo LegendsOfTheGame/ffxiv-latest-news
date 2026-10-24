@@ -1,0 +1,51 @@
+name: Post Event Starts
+
+on:
+  schedule:
+    # Every 15 minutes. GitHub can start a scheduled run late, but the window
+    # below covers the delay, so a late run still posts every event once.
+    - cron: '*/15 * * * *'
+
+  workflow_dispatch:
+
+# Two runs at once would compute overlapping windows and post twice.
+concurrency:
+  group: event-starts
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      actions: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      # The window runs from the last successful run's creation time to this
+      # run's. A failed run leaves its window open, so the next run retries it.
+      - name: Find the window
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          end=$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" --jq .created_at)
+          start=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow event_starts.yml \
+            --status success --limit 1 --json createdAt --jq '.[0].createdAt // ""')
+          echo "WINDOW_END=$end" >> "$GITHUB_ENV"
+          echo "WINDOW_START=$start" >> "$GITHUB_ENV"
+
+      - name: Post events that started
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python post_event_starts.py
