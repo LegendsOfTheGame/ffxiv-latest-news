@@ -24,15 +24,19 @@ jobs:
       - name: Install dependencies
         run: pip install requests
       
+      # Kept before the updater overwrites it, so the Discord step can compare.
+      - name: Save previous data
+        run: cp LatestNews.json "$RUNNER_TEMP/LatestNews.old.json"
+
       - name: Run news updater
         run: python parse_news.py
-      
+
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add LatestNews.json
-          
+
           # Only commit if there are changes
           if git diff --staged --quiet; then
             echo "No changes to commit"
@@ -40,3 +44,10 @@ jobs:
             git commit -m "Update news data"
             git push
           fi
+
+      # The repo's /github webhook does not get push events, so timestamp-only
+      # commits stay out of Discord. This posts only real data changes.
+      - name: Post data changes to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python notify_news_change.py "$RUNNER_TEMP/LatestNews.old.json" LatestNews.json
