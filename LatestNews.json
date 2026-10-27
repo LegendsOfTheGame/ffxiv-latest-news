@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "lastUpdated": 1793099793,
+  "lastUpdated": 1793120549,
   "source": "lodestonenews.com",
   "maintenance": null,
   "lastMaintenance": {
@@ -10,13 +10,6 @@
     "url": "https://na.finalfantasyxiv.com/lodestone/news/detail/70b303db0732cd2aadb62fa320f7fffd5822a45d"
   },
   "events": [
-    {
-      "title": "FINAL FANTASY XIV & Fall Guys Collaboration",
-      "start": 1791360000,
-      "end": 1793113140,
-      "url": "https://na.finalfantasyxiv.com/lodestone/special/fallguys/",
-      "category": "seasonal"
-    },
     {
       "title": "All Saints' Wake 2026 - A Grisly Affair of Mortals and Bears",
       "start": 1792051200,
@@ -62,5 +55,11 @@
       "category": "broadcast"
     }
   ],
-  "lastEvent": null
+  "lastEvent": {
+    "title": "Fall Guys Collaboration Event Returns October 7!",
+    "start": 1791360000,
+    "end": 1793113140,
+    "url": "https://na.finalfantasyxiv.com/lodestone/topics/detail/e1eb49ab626ea7b71795aab17ac5f335d8ace6de",
+    "category": "seasonal"
+  }
 }
