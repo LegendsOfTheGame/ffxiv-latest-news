@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "lastUpdated": 1793416804,
+  "lastUpdated": 1793445944,
   "source": "lodestonenews.com",
   "maintenance": null,
   "lastMaintenance": {
@@ -27,20 +27,6 @@
       "endEstimated": true
     },
     {
-      "title": "Fan Festival 2026 in Tokyo: Keynote",
-      "start": 1793412000,
-      "end": 1793419200,
-      "url": "https://na.finalfantasyxiv.com/lodestone/topics/detail/0377fcc55f424b8554a752a01c30057ec29d825b",
-      "category": "broadcast"
-    },
-    {
-      "title": "Fan Festival 2026 in Tokyo: Yoshi-P's Rapid-Fire Q&A Challenge! (Japanese)",
-      "start": 1793431800,
-      "end": 1793433600,
-      "url": "https://na.finalfantasyxiv.com/lodestone/topics/detail/0377fcc55f424b8554a752a01c30057ec29d825b",
-      "category": "broadcast"
-    },
-    {
       "title": "Fan Festival 2026 in Tokyo: Development Panel (Japanese)",
       "start": 1793496600,
       "end": 1793502000,
@@ -55,11 +41,5 @@
       "category": "broadcast"
     }
   ],
-  "lastEvent": {
-    "title": "Fall Guys Collaboration Event Returns October 7!",
-    "start": 1791360000,
-    "end": 1793113140,
-    "url": "https://na.finalfantasyxiv.com/lodestone/topics/detail/e1eb49ab626ea7b71795aab17ac5f335d8ace6de",
-    "category": "seasonal"
-  }
+  "lastEvent": null
 }
