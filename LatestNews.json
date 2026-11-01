@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "lastUpdated": 1793479656,
+  "lastUpdated": 1793503178,
   "source": "lodestonenews.com",
   "maintenance": null,
   "lastMaintenance": {
@@ -25,13 +25,6 @@
       "category": "seasonal",
       "endNote": "Until Patch 8.0",
       "endEstimated": true
-    },
-    {
-      "title": "Fan Festival 2026 in Tokyo: Development Panel (Japanese)",
-      "start": 1793496600,
-      "end": 1793502000,
-      "url": "https://na.finalfantasyxiv.com/lodestone/topics/detail/0377fcc55f424b8554a752a01c30057ec29d825b",
-      "category": "broadcast"
     },
     {
       "title": "Fan Festival 2026 in Tokyo: LIVE Q&A (Japanese)",
