@@ -37,12 +37,13 @@ DATE_RANGE = re.compile(
 
 # Reported release times for patches an open-ended event runs until. Used as
 # that event's "end" with "endEstimated": true, so readers that know only
-# "end" still get a countdown. 8.0 Evercold: reported, NOT confirmed. The
-# Fan Festival 2026 in Tokyo keynote is 31 October 2026, 02:00-04:00 UTC (30 Oct
-# 7-9 p.m. PDT, Lodestone topic 0377fcc5...); expect the real date there. Keep in
-# step with EVERCOLD_UTC in pandora-lunar/app.js when it lands.
+# "end" still get a countdown. 8.0 Evercold: public release 23 February 2027,
+# confirmed at the Tokyo Fan Fest keynote (31 October 2026). SE gives no time;
+# 12:00 UTC is the midpoint of the early access precedent (09:00 UTC) and the
+# daily reset players report for EW/DT (15:00 UTC). Keep in step with
+# EVERCOLD_UTC in pandora-lunar/app.js.
 PATCH_RELEASES = {
-    "Patch 8.0": int(datetime(2027, 1, 19, 7, 0, tzinfo=timezone.utc).timestamp()),
+    "Patch 8.0": int(datetime(2027, 2, 23, 12, 0, tzinfo=timezone.utc).timestamp()),
 }
 
 def _utc(y: int, mo: int, d: int, h: int, mi: int = 0) -> int:
