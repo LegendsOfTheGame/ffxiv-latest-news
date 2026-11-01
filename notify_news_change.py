@@ -23,14 +23,29 @@ def _load(path: str) -> Dict:
         return {}
 
 
+# Identity is title and page, not dates: a moved date (an estimated patch
+# release, Nov 2026) is the same event changed, not one removed and one added.
+# The Fan Festival stage events share a page, so the title is needed too.
 def _key(evt: Dict) -> tuple:
-    return (evt.get("title"), evt.get("start"), evt.get("end"))
+    return (evt.get("title"), evt.get("url"))
 
 
 def _when(evt: Optional[Dict]) -> str:
     if not evt or not evt.get("start"):
         return ""
     return f" (<t:{evt['start']}:F>)"
+
+
+def _moved(was: Dict, now: Dict) -> List[str]:
+    parts: List[str] = []
+    if was.get("start") != now.get("start") and now.get("start"):
+        parts.append(f"starts <t:{now['start']}:F>")
+    if was.get("end") != now.get("end") and now.get("end"):
+        est = " (estimated)" if now.get("endEstimated") else ""
+        parts.append(f"ends <t:{now['end']}:F>{est}")
+    if was.get("endNote") != now.get("endNote") and now.get("endNote"):
+        parts.append(now["endNote"])
+    return parts
 
 
 def changes(old: Dict, new: Dict) -> List[str]:
@@ -41,6 +56,10 @@ def changes(old: Dict, new: Dict) -> List[str]:
     for k, e in new_events.items():
         if k not in old_events:
             lines.append(f"➕ New: [{e['title']}]({e['url']}){_when(e)}")
+        elif e != old_events[k]:
+            parts = _moved(old_events[k], e)
+            if parts:
+                lines.append(f"✏️ Changed: [{e['title']}]({e['url']}): now {', '.join(parts)}")
     for k, e in old_events.items():
         if k not in new_events:
             lines.append(f"➖ Ended or removed: {e['title']}")

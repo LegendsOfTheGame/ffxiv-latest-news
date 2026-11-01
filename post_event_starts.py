@@ -20,8 +20,10 @@ NEWS_FILE = "LatestNews.json"
 FIRST_RUN_LOOKBACK = 20 * 60
 
 # After a long outage (GitHub disables idle schedules after 60 days), events
-# older than this are history, not news, and are not posted.
-MAX_LOOKBACK = 6 * 3600
+# older than this are history, not news, and are not posted. GitHub runs the
+# 15-minute schedule only every 4-6 hours (seen Oct 2026: 5 h 56 min between
+# runs), so this must be well above that gap or a start is silently skipped.
+MAX_LOOKBACK = 24 * 3600
 
 COLOURS = {"seasonal": 0xE67E22, "broadcast": 0x3498DB}
 
