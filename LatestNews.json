@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "lastUpdated": 1793764648,
+  "lastUpdated": 1793798938,
   "source": "lodestonenews.com",
   "maintenance": null,
   "lastMaintenance": {
@@ -20,11 +20,5 @@
       "endEstimated": true
     }
   ],
-  "lastEvent": {
-    "title": "All Saints' Wake Begins October 15",
-    "start": 1792051200,
-    "end": 1793631540,
-    "url": "https://na.finalfantasyxiv.com/lodestone/topics/detail/10d899ee4fcc8eba8414f464a712e14200e8e1f8",
-    "category": "seasonal"
-  }
+  "lastEvent": null
 }
