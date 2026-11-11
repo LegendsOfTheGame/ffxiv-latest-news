@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "lastUpdated": 1794368928,
+  "lastUpdated": 1794402792,
   "source": "lodestonenews.com",
   "maintenance": null,
   "lastMaintenance": {
@@ -18,6 +18,13 @@
       "category": "seasonal",
       "endNote": "Until Patch 8.0",
       "endEstimated": true
+    },
+    {
+      "title": "FINAL FANTASY XIV & FINAL FANTASY XVI Crossover Event: The Path Infernal",
+      "start": 1794988800,
+      "end": 1796828340,
+      "url": "https://na.finalfantasyxiv.com/lodestone/special/ffxvi/e86ytg2ko3",
+      "category": "seasonal"
     }
   ],
   "lastEvent": null
