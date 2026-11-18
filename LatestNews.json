@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "lastUpdated": 1795013307,
+  "lastUpdated": 1795035384,
   "source": "lodestonenews.com",
   "maintenance": null,
   "lastMaintenance": {
@@ -10,6 +10,14 @@
     "url": "https://na.finalfantasyxiv.com/lodestone/news/detail/611e992461bd620df45700041e46569377ee2972"
   },
   "events": [
+    {
+      "title": "Keybound Brawler",
+      "start": 1793174400,
+      "end": 1803384000,
+      "endNote": "Until Patch 8.0",
+      "url": "https://na.finalfantasyxiv.com/lodestone/special/keybound_brawler/",
+      "category": "seasonal"
+    },
     {
       "title": "FINAL FANTASY XIV & FINAL FANTASY XVI Crossover Event: The Path Infernal",
       "start": 1794988800,
