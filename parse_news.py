@@ -66,6 +66,17 @@ MANUAL_EVENTS = [
      "start": _utc(2026, 11, 1, 3, 30), "end": _utc(2026, 11, 1, 4, 30), "url": FAN_FEST_2026},
 ]
 
+# Events that run for months, whose news topic ages out of the topics list long
+# before the event ends. Written as ordinary "seasonal" events. Keybound Brawler:
+# the Lodestone special page says it starts 28 Oct 2026 01:00 PDT (08:00 UTC)
+# and runs until Patch 8.0; its topic dropped out of the feed in November 2026.
+PINNED_EVENTS = [
+    {"title": "Keybound Brawler",
+     "start": _utc(2026, 10, 28, 8), "end": PATCH_RELEASES["Patch 8.0"],
+     "endNote": "Until Patch 8.0",
+     "url": "https://na.finalfantasyxiv.com/lodestone/special/keybound_brawler/"},
+]
+
 # "Wednesday, October 28, 2026 at 1:00 a.m. (PDT) to the release of Patch 8.0"
 # An event with a start and no end date (Keybound Brawler, Oct 2026). Tried
 # only when DATE_RANGE finds nothing; the event is written with "end": null
@@ -433,6 +444,11 @@ def main() -> None:
 
     for manual in MANUAL_EVENTS:
         found[(manual["start"], manual["end"])] = {**manual, "category": "broadcast"}
+
+    # Only when no topic or banner already gave the same event under its own title.
+    for pinned in PINNED_EVENTS:
+        if not any(pinned["title"].lower() in e["title"].lower() for e in found.values()):
+            found[(pinned["start"], pinned["end"])] = {**pinned, "category": "seasonal"}
 
     for evt in found.values():
         end = evt["end"]
