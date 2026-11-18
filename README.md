@@ -236,7 +236,12 @@ This file is **not** touched by the scheduled workflow, which stages only
 
 ## 📜 License
 
-This project is open source. Data is aggregated from official Square Enix Lodestone announcements.
+The code in this repository is licensed under the GNU Affero General Public
+License v3.0. See [LICENSE](LICENSE).
+
+The news data comes from official Square Enix Lodestone announcements, through
+Lodestone News. `OceanBait.json` is derived from Distant Seas, which is also
+AGPL-3.0.
 
 ## 🐛 Issues & Contributions
 
