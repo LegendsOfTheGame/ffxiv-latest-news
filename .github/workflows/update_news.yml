@@ -2,8 +2,9 @@ name: Update FFXIV News Data
 
 on:
   schedule:
-    # Every 6 hours at :00
-    - cron: '0 */6 * * *'
+    # Every hour at :00. Hourly so that a maintenance extension reaches the
+    # Ledger's maintenance lockout within about an hour (was every 6 hours).
+    - cron: '0 * * * *'
   
   # Allow manual trigger
   workflow_dispatch:
